@@ -2,8 +2,7 @@ FROM solr:6
 
 USER root
 
-RUN curl -sO https://raw.githubusercontent.com/sunspot/sunspot/2-0-stable/sunspot_solr/solr/solr/conf/schema.xml
-RUN curl -sO https://raw.githubusercontent.com/sunspot/sunspot/2-0-stable/sunspot_solr/solr/solr/conf/solrconfig.xml
+COPY *.xml ./
 
 # test env
 RUN mkdir -p server/solr/test/conf
