@@ -1,0 +1,22 @@
+# Dockerfile for Solr + sunspot_solr
+
+If you are in the unenviable position of having to use the sunspot_solr gem to
+hook up your ruby app with solr, this Dockerfile might help.
+
+It copies the necessary schema.xml and solrconfig.xml files out of the gem and
+injects them into the correct place in the offical solr:6 container (still
+using 6 because that's what I need)
+
+(This sounds easy but finding the right place to put these XML files is not)
+
+Creates config for test, development, staging, and production environments.
+
+## How to use
+
+after building, and getting this up and running, you need to create the cores. This can
+only be done while solr is running and thus not in the Dockerfile itself. Luckily this
+is easily accomplished with a GET request. Eg, using curl:
+
+    ENV=test \
+    curl "http://localhost:8983/solr/admin/cores?action=CREATE&name=$ENV&instanceDir=$ENV"
+
